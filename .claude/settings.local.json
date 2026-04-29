@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:algs4.cs.princeton.edu)",
+      "Bash(curl -s \"https://search.maven.org/solrsearch/select?q=g:edu.princeton.cs+a:algs4&rows=5&wt=json\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(doc.get\\('latestVersion',''\\), doc.get\\('id',''\\)\\) for doc in d.get\\('response',{}\\).get\\('docs',[]\\)]\")"
+    ]
+  }
+}
