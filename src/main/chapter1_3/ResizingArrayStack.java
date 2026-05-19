@@ -3,7 +3,9 @@ package main.chapter1_3;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class ResizingArrayStack<Item> {
+import java.util.Iterator;
+
+public class ResizingArrayStack<Item> implements Iterable<Item> {
     private Item[] a;
     private int n;
 
@@ -43,6 +45,10 @@ public class ResizingArrayStack<Item> {
         return item;
     }
 
+    public Iterator<Item> iterator() {
+        return new ReverseArrayIterator();
+    }
+
     public static void main(String[] args) {
         ResizingArrayStack<String> stack = new ResizingArrayStack<>();
         while (!StdIn.isEmpty()) {
@@ -54,5 +60,15 @@ public class ResizingArrayStack<Item> {
             }
         }
         StdOut.println("("+stack.size()+" left on stack)");
+    }
+
+    private class ReverseArrayIterator implements Iterator<Item> {
+        private int i = n - 1;
+
+        public boolean hasNext() { return i >= 0; }
+
+        public Item next() { return a[i--]; }
+
+        public void remove() { throw new UnsupportedOperationException(); }
     }
 }
