@@ -3,6 +3,8 @@ package main.chapter1_3;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
+import java.util.Iterator;
+
 // LIFO stack
 public class LinkedListStack<Item> {
     private Node first;
@@ -11,6 +13,26 @@ public class LinkedListStack<Item> {
     private class Node {
         private Node next;
         private Item item;
+    }
+
+    private class ListIterator implements Iterator<Item> {
+        Node current;
+
+        public ListIterator() {
+            current = first;
+        }
+
+        @Override
+        public Item next() {
+            Item item = current.item;
+            current = current.next;
+            return item;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
     }
 
     public LinkedListStack() {
@@ -39,6 +61,10 @@ public class LinkedListStack<Item> {
         return n;
     }
 
+    public Iterator<Item> iterator() {
+        return new ListIterator();
+    }
+
     public static void main(String[] args) {
         LinkedListStack<String> stack = new LinkedListStack<>();
         while (!StdIn.isEmpty()) {
@@ -50,5 +76,11 @@ public class LinkedListStack<Item> {
             }
         }
         StdOut.println("(" + stack.size() + " left on stack)");
+
+        // Iterator client
+        Iterator<String> iterator = stack.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
     }
 }
